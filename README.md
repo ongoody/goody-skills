@@ -71,30 +71,34 @@ tells Goody to send (`event-triggered-gifting`).
 ## Making them permanent
 
 Pasting works per conversation. To have your assistant reach for these on
-its own, every time:
+its own, every time — one command:
 
-**Claude Code** — paste a recipe in and ask it to save itself:
-
-```
-Save this as a skill at .claude/skills/send-gifts/SKILL.md
+```sh
+npx skills add ongoody/goody-skills --all
 ```
 
-Claude Code writes the file and picks it up next session. To get every
-recipe plus the Goody connection in one step instead:
+That installs all five into Claude Code, Cursor, Cline, Copilot, Windsurf,
+and 30+ other agents. Add `--global` to install for every project, or
+`--skill send-gifts` to take just one. `npx skills add ongoody/goody-skills --list`
+shows what's available first.
+
+**Claude Code**, if you'd rather have the recipes and the Goody connection
+together in one step:
 
 ```
 /plugin marketplace add ongoody/goody-skills
 /plugin install goody@goody-skills
 ```
 
-**Claude Desktop / claude.ai** — this one is manual. Claude can't add
+You can also just paste a recipe into Claude Code and say *"save this as a
+skill at `.claude/skills/send-gifts/SKILL.md`"* — it writes the file
+itself.
+
+**Claude Desktop / claude.ai** — this one is manual. Claude there can't add
 skills to its own settings, so pasting and asking won't stick. Download a
 recipe folder and upload it under Settings → Capabilities → Skills. Team
 and Enterprise admins can push skills to everyone at once, which beats each
 person installing their own.
-
-**Cursor and other assistants** — save the recipe wherever that tool keeps
-its rules or instructions files.
 
 ## Before you point an agent at a payment method
 
