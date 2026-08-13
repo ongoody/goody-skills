@@ -1,8 +1,7 @@
 # Goody skills
 
-Gifting recipes for the [Goody](https://www.ongoody.com) MCP server —
-automate candidate and employee appreciation from the tools you already
-use.
+Gifting recipes for the [Goody](https://www.ongoody.com) MCP server — send
+and automate business gifts from the tools you already use.
 
 ## Get started
 
@@ -36,15 +35,15 @@ take about ten seconds.
 
 ---
 
-Follow the recipe above. Three candidates finished their take-home this
-week — Ada, Grace, and Katherine. Send each of them a $25 coffee gift.
+Follow the recipe above. Send a $25 coffee gift to the five people in
+this list, from me, and show me a preview first.
 ```
 
 **Or just give it the link**, if your assistant can browse the web:
 
 ```
 Read this gifting recipe and follow it:
-https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/candidate-milestone-gifting/SKILL.md
+https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/send-gifts/SKILL.md
 
 Here's what I want to send:
 ```
@@ -56,40 +55,46 @@ conversation.
 
 | Recipe | What it does | |
 |---|---|---|
-| [`candidate-milestone-gifting`](skills/candidate-milestone-gifting) | Gifts candidates when they hit a recruiting stage — take-home done, onsite, offer, accepted, declined. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/candidate-milestone-gifting/SKILL.md) |
-| [`ats-contact-sync`](skills/ats-contact-sync) | Pulls people from a Notion database, ATS, or spreadsheet into Goody contacts and lists. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/ats-contact-sync/SKILL.md) |
-| [`recurring-milestone-autogifts`](skills/recurring-milestone-autogifts) | Always-on rules for birthdays, work anniversaries, and onboarding. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/recurring-milestone-autogifts/SKILL.md) |
+| [`send-gifts`](skills/send-gifts) | The core flow — pick a gift and card, write the message, preview, confirm, send. Start here. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/send-gifts/SKILL.md) |
+| [`event-triggered-gifting`](skills/event-triggered-gifting) | Gift when something happens elsewhere — a deal closes, a candidate clears a stage, a customer renews, a ticket gets a great CSAT. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/event-triggered-gifting/SKILL.md) |
+| [`contact-sync`](skills/contact-sync) | Import people from a spreadsheet, CRM, ATS, HRIS, or Notion database into Goody contacts and lists. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/contact-sync/SKILL.md) |
+| [`autogift-rules`](skills/autogift-rules) | Always-on rules for birthdays, work anniversaries, and onboarding. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/autogift-rules/SKILL.md) |
 | [`gifting-budget-guardrails`](skills/gifting-budget-guardrails) | Keeps automated spend inside what you meant to spend. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/gifting-budget-guardrails/SKILL.md) |
 
-**Which one?** It depends on what triggers the gift. Goody's autogift
-engine fires on exactly three events — birthdays, work anniversaries, and
-onboarding — and runs those for you. Anything else, including any ATS
-stage, has to be spotted by your own system, which then tells Goody to
-send. There is no custom autogift trigger.
+**Which one?** If you're sending now, `send-gifts` is all you need. If the
+gift should fire off something in another system, the dividing line is what
+triggers it: Goody automates birthdays, work anniversaries, and onboarding
+itself (`autogift-rules`), and everything else — any CRM stage, hiring
+stage, or support event — has to be spotted by your system, which then
+tells Goody to send (`event-triggered-gifting`).
 
 ## Making them permanent
 
-Pasting a link works per conversation. To have your assistant reach for
-these on its own, every time, install them properly.
+Pasting works per conversation. To have your assistant reach for these on
+its own, every time:
 
-**Claude Code** — installs the recipes and the Goody connection together:
+**Claude Code** — paste a recipe in and ask it to save itself:
+
+```
+Save this as a skill at .claude/skills/send-gifts/SKILL.md
+```
+
+Claude Code writes the file and picks it up next session. To get every
+recipe plus the Goody connection in one step instead:
 
 ```
 /plugin marketplace add ongoody/goody-skills
 /plugin install goody@goody-skills
 ```
 
-**Claude Desktop / claude.ai** — download this repo and upload a skill
-folder under Settings → Capabilities → Skills. Team and Enterprise admins
-can push skills to everyone at once, which beats each person installing
-their own.
+**Claude Desktop / claude.ai** — this one is manual. Claude can't add
+skills to its own settings, so pasting and asking won't stick. Download a
+recipe folder and upload it under Settings → Capabilities → Skills. Team
+and Enterprise admins can push skills to everyone at once, which beats each
+person installing their own.
 
-**Your own project** — copy a folder into `.claude/skills/`:
-
-```sh
-git clone https://github.com/ongoody/goody-skills
-cp -r goody-skills/skills/candidate-milestone-gifting .claude/skills/
-```
+**Cursor and other assistants** — save the recipe wherever that tool keeps
+its rules or instructions files.
 
 ## Before you point an agent at a payment method
 

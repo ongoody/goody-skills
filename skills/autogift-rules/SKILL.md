@@ -1,5 +1,5 @@
 ---
-name: recurring-milestone-autogifts
+name: autogift-rules
 description: Set up Goody autogift rules that fire automatically on birthdays, work anniversaries, and new-hire onboarding. Use when asked to automate recurring employee gifting, set up always-on celebration gifts, or stop manually sending the same milestone gift every month.
 ---
 
@@ -21,7 +21,7 @@ its own whenever a person on the bound contact list hits the event.
 There is **no** custom or arbitrary event type. Recruiting stages, deal
 closes, project completions, and anything else your own system knows
 about cannot drive an autogift rule. Detect those yourself and send with
-`goody_order_batches_create` — see the `candidate-milestone-gifting`
+`goody_order_batches_create` — see the `event-triggered-gifting`
 skill.
 
 Say this plainly when a user asks for an ATS-triggered autogift. Do not
@@ -41,7 +41,7 @@ activation is the money-committing call.
 
 ### 1. Bind the audience
 
-Either `contact_list_id` (an existing list — see `ats-contact-sync`) or
+Either `contact_list_id` (an existing list — see `contact-sync`) or
 `contact_ids[]`, which creates an implicit list named after the first
 contact. Prefer a real, deliberately named list; the implicit name is
 unhelpful when someone audits rules later.
