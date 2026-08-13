@@ -20,10 +20,26 @@ cards, and send gifts on your behalf.
 > token on the **[Personal MCP token](https://www.ongoody.com/plus/account/api/mcp)**
 > page — those need a token as well as the URL.
 
+## Using a recipe
+
+Once Goody is connected, paste this into Claude, ChatGPT, or any assistant
+that can read a link:
+
+```
+Read this gifting recipe and follow it:
+https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/candidate-milestone-gifting/SKILL.md
+
+Here's what I want to send:
+```
+
+Swap the last path segment for whichever recipe you want — the names are in
+the table below. Your assistant reads it and follows it for the rest of
+that conversation.
+
 ## The recipes
 
-Each folder in `skills/` is a plain markdown recipe. Ask your assistant to
-read one, or fork it and make it yours.
+Each folder in `skills/` is a plain markdown recipe. Paste its link as
+above, or fork it and make it yours.
 
 | Recipe | What it does |
 |---|---|
@@ -38,18 +54,24 @@ onboarding — and runs those for you. Anything else, including any ATS
 stage, has to be spotted by your own system, which then tells Goody to
 send. There is no custom autogift trigger.
 
-## Using them in Claude Code
+## Making them permanent
+
+Pasting a link works per conversation. To have your assistant reach for
+these on its own, every time, install them properly.
+
+**Claude Code** — installs the recipes and the Goody connection together:
 
 ```
 /plugin marketplace add ongoody/goody-skills
 /plugin install goody@goody-skills
 ```
 
-This installs the recipes and the Goody connection together — no separate
-setup needed.
+**Claude Desktop / claude.ai** — download this repo and upload a skill
+folder under Settings → Capabilities → Skills. Team and Enterprise admins
+can push skills to everyone at once, which beats each person installing
+their own.
 
-To vendor one into your own project instead, copy the folder into
-`.claude/skills/`:
+**Your own project** — copy a folder into `.claude/skills/`:
 
 ```sh
 git clone https://github.com/ongoody/goody-skills
