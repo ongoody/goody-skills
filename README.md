@@ -22,8 +22,25 @@ cards, and send gifts on your behalf.
 
 ## Using a recipe
 
-Once Goody is connected, paste this into Claude, ChatGPT, or any assistant
-that can read a link:
+Once Goody is connected, hand your assistant a recipe. Two ways — both
+take about ten seconds.
+
+**Paste the recipe in.** Works in every assistant, no browsing needed.
+
+1. Click a **Copy** link in the table below. You'll get plain text.
+2. Select all (`Cmd/Ctrl+A`), copy (`Cmd/Ctrl+C`).
+3. Paste it into your chat, then add what you want to send:
+
+```
+[paste the recipe here]
+
+---
+
+Follow the recipe above. Three candidates finished their take-home this
+week — Ada, Grace, and Katherine. Send each of them a $25 coffee gift.
+```
+
+**Or just give it the link**, if your assistant can browse the web:
 
 ```
 Read this gifting recipe and follow it:
@@ -32,21 +49,17 @@ https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/candidate-mil
 Here's what I want to send:
 ```
 
-Swap the last path segment for whichever recipe you want — the names are in
-the table below. Your assistant reads it and follows it for the rest of
-that conversation.
+Either way your assistant follows the recipe for the rest of that
+conversation.
 
 ## The recipes
 
-Each folder in `skills/` is a plain markdown recipe. Paste its link as
-above, or fork it and make it yours.
-
-| Recipe | What it does |
-|---|---|
-| [`candidate-milestone-gifting`](skills/candidate-milestone-gifting) | Gifts candidates when they hit a recruiting stage — take-home done, onsite, offer, accepted, declined. |
-| [`ats-contact-sync`](skills/ats-contact-sync) | Pulls people from a Notion database, ATS, or spreadsheet into Goody contacts and lists. |
-| [`recurring-milestone-autogifts`](skills/recurring-milestone-autogifts) | Always-on rules for birthdays, work anniversaries, and onboarding. |
-| [`gifting-budget-guardrails`](skills/gifting-budget-guardrails) | Keeps automated spend inside what you meant to spend. |
+| Recipe | What it does | |
+|---|---|---|
+| [`candidate-milestone-gifting`](skills/candidate-milestone-gifting) | Gifts candidates when they hit a recruiting stage — take-home done, onsite, offer, accepted, declined. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/candidate-milestone-gifting/SKILL.md) |
+| [`ats-contact-sync`](skills/ats-contact-sync) | Pulls people from a Notion database, ATS, or spreadsheet into Goody contacts and lists. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/ats-contact-sync/SKILL.md) |
+| [`recurring-milestone-autogifts`](skills/recurring-milestone-autogifts) | Always-on rules for birthdays, work anniversaries, and onboarding. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/recurring-milestone-autogifts/SKILL.md) |
+| [`gifting-budget-guardrails`](skills/gifting-budget-guardrails) | Keeps automated spend inside what you meant to spend. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/gifting-budget-guardrails/SKILL.md) |
 
 **Which one?** It depends on what triggers the gift. Goody's autogift
 engine fires on exactly three events — birthdays, work anniversaries, and
