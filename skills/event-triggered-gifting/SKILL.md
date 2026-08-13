@@ -84,7 +84,9 @@ For a scheduled job with nobody watching:
 - Approval is captured when the automation is **set up**, not per run.
   Show a representative gift and the expected spend, and confirm before
   enabling it.
-- Mint a token scoped to exactly what it needs — see
-  `gifting-budget-guardrails`.
+- Mint a token scoped to exactly what it needs. A job that only syncs
+  contacts and builds previews for a human should get `mcp.read` +
+  `mcp.write` and no `mcp.gifts` — a token that cannot spend beats a
+  prompt that says not to.
 - Make the source query narrow and the write-back reliable. An unattended
   send with a broad filter and no write-back is the worst combination.

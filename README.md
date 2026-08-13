@@ -59,7 +59,6 @@ conversation.
 | [`event-triggered-gifting`](skills/event-triggered-gifting) | Gift when something happens elsewhere — a deal closes, a candidate clears a stage, a customer renews, a ticket gets a great CSAT. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/event-triggered-gifting/SKILL.md) |
 | [`contact-sync`](skills/contact-sync) | Import people from a spreadsheet, CRM, ATS, HRIS, or Notion database into Goody contacts and lists. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/contact-sync/SKILL.md) |
 | [`autogift-rules`](skills/autogift-rules) | Always-on rules for birthdays, work anniversaries, and onboarding. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/autogift-rules/SKILL.md) |
-| [`gifting-budget-guardrails`](skills/gifting-budget-guardrails) | Keeps automated spend inside what you meant to spend. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/gifting-budget-guardrails/SKILL.md) |
 
 **Which one?** If you're sending now, `send-gifts` is all you need. If the
 gift should fire off something in another system, the dividing line is what
@@ -77,7 +76,7 @@ its own, every time — one command:
 npx skills add ongoody/goody-skills --all
 ```
 
-That installs all five into Claude Code, Cursor, Cline, Copilot, Windsurf,
+That installs all four into Claude Code, Cursor, Cline, Copilot, Windsurf,
 and 30+ other agents. Add `--global` to install for every project, or
 `--skill send-gifts` to take just one. `npx skills add ongoody/goody-skills --list`
 shows what's available first.
