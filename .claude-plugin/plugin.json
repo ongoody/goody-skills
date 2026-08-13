@@ -1,0 +1,9 @@
+{
+  "name": "goody",
+  "description": "Send and automate business gifts through the Goody MCP server — candidate and employee milestone recipes, contact sync, and spend guardrails.",
+  "version": "0.1.0",
+  "author": { "name": "Goody", "email": "mcp@ongoody.com" },
+  "homepage": "https://www.ongoody.com",
+  "license": "MIT",
+  "mcpServers": "./.mcp.json"
+}

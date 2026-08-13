@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "goody": {
+      "type": "http",
+      "url": "https://api.ongoody.com/mcp/v1"
+    }
+  }
+}
