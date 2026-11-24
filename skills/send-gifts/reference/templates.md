@@ -3,8 +3,9 @@
 1. `goody_templates_list` to find it (`include_catalog: true` adds
    Goody's own templates), then `goody_templates_get` to read it.
 2. Pass `template_id` and the `version` you read as `template_version` to
-   preview, price, and create. Use the same version and the same
-   overrides for all three.
+   preview, price, and create. Use the same version for all three, and
+   the same overrides for preview and create. Price accepts only some
+   overrides (see the core flow), so pass it the template plus those.
 3. The template fills in the cart, card, message, branding, and settings.
    Anything you pass explicitly overrides it.
 

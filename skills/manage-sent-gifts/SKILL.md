@@ -84,6 +84,12 @@ When reporting on a send, count by status and name the people who matter
 for the question: "40 of 47 accepted. Not opened yet: Ana, Raj, Lee."
 Don't paste the whole list unless asked.
 
+`total_count` is the number of gifts, not a breakdown by status. Page
+through `goody_orders_list` until you've read `total_count` gifts before
+giving any counts. For a very large send (hundreds of gifts), say how
+many calls that takes and ask first, or say plainly that your counts
+cover only the gifts you read.
+
 Gifts expire if nobody accepts them in time, and an expired gift still
 reads `created`. Check the send's `expires_at` before calling a gift
 "waiting". If many are still `created` close to that date, mention it.

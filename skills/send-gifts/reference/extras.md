@@ -19,11 +19,11 @@ instead of pasting a Calendly link into the message.
 
 ## Printed notes in the box
 
-Only for products whose brand prints a note (`printed_gift_note_enabled`).
-`printed_gift_note_mode`: `verbatim` (the card message), `auto_shortened`
-or `custom` (both need `printed_gift_note_text`), or `disabled`. Leave it
-out to keep the brand's usual note. A note that's too long is rejected
-with the number of characters to cut; shorten it with the user.
+Don't set `printed_gift_note_mode` or `printed_gift_note_text` from here.
+Some brands charge a fee per printed note, and preview and price don't
+accept those fields, so the fee would be missing from the total the user
+approved. Leave them out; the brand's usual note still prints. If the
+user wants a custom printed note, point them to the Goody web app.
 
 ## Question forms
 

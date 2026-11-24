@@ -88,7 +88,9 @@ problem.
 
 Stamp each source record — a Notion property, a CRM field, a spreadsheet
 column — with the batch id, the sent-on date, and that person's order id
-(plus their gift link for `link_single`). The order id is what you need
+(plus their gift link for `link_single`). The create result lists at most
+10 gifts; for bigger sends, page through `goody_orders_list` with the
+`order_batch_id` to get everyone's. The order id is what you need
 later to check on or cancel one person's gift. Mark skipped rows with the
 reason, such as a missing email.
 
