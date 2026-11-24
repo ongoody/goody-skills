@@ -50,20 +50,21 @@ and don't ask when sending to many people.
 
 What the tools don't tell you:
 
-- **Personalized picks** — one person at a time, never looped over a
+- **Personalized picks** (`goody_personalized_picks_list`) — one person at a time, never looped over a
   list. Picks have no reason attached; don't invent one. If none come
   back, follow the result's `note` and move to a search.
-- **Gift of Choice** — if `suggested_variable_price` is null, the budget
+- **Gift of Choice** (`goody_gift_of_choice_list`) — if `suggested_variable_price` is null, the budget
   is under the gift's minimum. Tell the user the minimum; don't raise
   their spend yourself.
-- **Catalog search** — ask about the recipient's interests, occasion, and
+- **Catalog search** (`goody_products_search`) — ask about the recipient's interests, occasion, and
   budget before searching. The price filter includes shipping, but the
   prices shown don't, so a $50 cap can hide a $45 item with $8 shipping.
-  Pass `shipping_country` whenever you know it.
+  Pass `shipping_country` whenever you know it. Narrow to a category with
+  `goody_product_categories_list` only when a plain query won't do.
 - **Variants** — copy exact names from `goody_products_get` → `variants`
   ("True Navy / M", not "Navy / Medium"). Nothing checks a wrong name
   before sending. Leave `variants` out to let the recipient choose.
-- **Collections** — send with the collection's `product_id`, not its `id`.
+- **Collections** (`goody_collections_list`) — send with the collection's `product_id`, not its `id`.
 
 When a picker widget appears, frame the choice in one line and wait for
 the click. Don't list the items again. With no widget, list them as text
@@ -71,8 +72,8 @@ with links and ask.
 
 ## 3. Card and message
 
-A card is required and there's no default; never choose one without
-asking. For the message, offer the choice: none, theirs, or a few drafts
+A card (`goody_cards_list`, filtered by `goody_card_occasions_list`) is
+required and there's no default; never choose one without asking. For the message, offer the choice: none, theirs, or a few drafts
 from `goody_messages_generate`.
 
 Keep the message short and tied to the reason for sending. Don't imply
@@ -101,7 +102,7 @@ Show all of this and get a typed yes:
 - the send method and whether recipients get an email:
   `link_single` = no, you share the link; `email_and_link` = yes;
   `direct_send` = no email, the item ships
-- the payment method
+- the payment method (from `goody_payment_methods_list`)
 - the From name. If the message is signed by someone else, ask which
   name they want.
 - expiry: 10 weeks unless they pick a date
