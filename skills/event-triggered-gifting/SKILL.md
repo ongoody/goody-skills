@@ -40,8 +40,15 @@ assuming these.
 ### 1. Read the trigger source
 
 Query the system for the people who crossed the event in the window the
-user cares about. Restate what you filtered on and how many came back
-before pricing anything.
+user cares about. Work out the window from `goody_me_get`'s
+`server_time`. If a phrase like "this week" could mean the calendar week
+or the last 7 days, say which one you used.
+
+Leave out records that already carry a Goody batch id or sent-on date
+from an earlier run.
+
+Restate what you filtered on and how many came back before pricing
+anything.
 
 You need a name and an email per person. Never invent one — list who you
 skipped and why.
@@ -62,6 +69,15 @@ card, write the message, preview, confirm, then
 `goody_order_batches_create`. Nothing about being event-triggered changes
 the approval rules.
 
+Two things differ from an everyday send:
+
+- **Meetings.** If the user's default meeting setting would make
+  recipients book a meeting first, say so and ask. A thank-you to someone
+  who just signed or interviewed should rarely be gated behind a booking.
+- **The autogift suggestion.** After sending, the result may offer to
+  turn this into a birthday or anniversary autogift. That doesn't fit an
+  event gift; skip it unless the user asks.
+
 Match the message to the trigger, and keep it free of anything that reads
 as a commitment. A gift after a hiring stage is thanks for the time spent,
 not a signal an offer is coming. A gift after a renewal is appreciation,
@@ -70,9 +86,14 @@ problem.
 
 ### 4. Write the result back
 
-Stamp the source record — a Notion property, a CRM field, a spreadsheet
-column — with the batch id or a sent-on date. Goody will not dedupe for
-you, and the next run will re-send to everyone still matching the filter.
+Stamp each source record — a Notion property, a CRM field, a spreadsheet
+column — with the batch id, the sent-on date, and that person's order id
+(plus their gift link for `link_single`). The order id is what you need
+later to check on or cancel one person's gift. Mark skipped rows with the
+reason, such as a missing email.
+
+Goody will not dedupe for you, and the next run will re-send to everyone
+still matching the filter.
 
 This is the step people skip, and it is the one that causes duplicate
 gifts.
@@ -88,5 +109,16 @@ For a scheduled job with nobody watching:
   contacts and builds previews for a human should get `mcp.read` +
   `mcp.write` and no `mcp.gifts` — a token that cannot spend beats a
   prompt that says not to.
+- Save the gift as a template in the Goody web app (these tools can read
+  templates but not create them), and send with `template_id` and
+  `template_version`. Every run then sends the gift that was approved,
+  and a changed template is rejected instead of sent unseen.
+- Give each send its own `idempotency_key` (a UUID) and save it on the
+  source record before calling `goody_order_batches_create`. A run that
+  retries after a crash reuses the saved key and gets the earlier result
+  back instead of charging twice.
 - Make the source query narrow and the write-back reliable. An unattended
   send with a broad filter and no write-back is the worst combination.
+- Set the **Daily AI gifting limit** on Goody's Connect AI tools page to
+  what a normal day should cost. It's the backstop when a query returns
+  200 people instead of 20.
