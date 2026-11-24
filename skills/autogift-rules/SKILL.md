@@ -66,46 +66,32 @@ from an HRIS (its `kind` in `goody_contact_lists_list`). The create tool
 accepts any list without warning, and on a hand-built list the rule never
 fires.
 
-### 2. Define the gift — pick exactly one path
+### 2. Define the gift
 
-**Path A — clone a previous send.** Pass `source_order_batch_id` and the
-cart, card, message, from_name, payment method, swap type, and shipping
-tier are all pulled from that batch. Best when the user already sent
-something they liked. Find it with `goody_order_batches_list`, always
-with a `query`, `product_id`, or `created_after` and a small `per_page`
-(about 5); unfiltered results are very large. Or use the batch you just
-sent.
+The create tool takes one of two paths. Which to use:
 
-Cloning is guarded: if the source batch's greeting card carries occasions
-that contradict `event_type` — a Birthday card cloned into a
-`work_anniversary` rule — the request is **rejected**, so nobody gets
-"Happy birthday!" on their work anniversary. `allow_occasion_mismatch:
-true` overrides it, and is only right for a deliberately generic card.
-Ask before overriding. The error doesn't name the card's occasions; look
-the card up in `goody_cards_list` to explain the clash.
+- **Copy a previous send** (`source_order_batch_id`) when the user
+  already sent something they liked. Find it with
+  `goody_order_batches_list`, always filtered (`query`, `product_id`, or
+  `created_after`) with a small `per_page` (about 5); unfiltered results
+  are very large. Or use the send you just made.
+- **Build from scratch** otherwise, the same way as in `send-gifts`.
 
-**Path B — build from scratch.** Pass a cart (`product_id` shorthand or
-`cart.items[]`) plus `card_id`, `message`, and `payment_method_id`.
+Copying refuses a card whose occasions clash with the event (a birthday
+card on a work-anniversary rule), so nobody gets "Happy birthday!" on
+their anniversary. The error doesn't name the card's occasions; look the
+card up in `goody_cards_list` to explain it. Only override with
+`allow_occasion_mismatch` for a deliberately generic card, and ask first.
 
-Passing both paths, or neither, is an error.
-
-`payment_method_id` is technically optional but the rule **cannot be
-activated without it** — it resolves to the autopay method the rule
-charges. Always pass it.
+Always pass `payment_method_id` when building from scratch. The rule is
+created without it but can never be turned on.
 
 ### 3. Timing
 
-- `anchor_date_send_option`: `send_on_anchor_date`,
-  `send_before_anchor_date`, or `send_after_anchor_date`.
-- `anchor_date_number_of_days_delta`: required for before/after.
-- `anchor_date_type`: `start_date` or `added_to_hris_date` — **only** for
-  `onboarding`. These are not event types.
-- `tenure_min` / `tenure_max`: inclusive year bounds, meaningful for
-  `work_anniversary`. This is how you build tiered programs — a $50 gift
-  at years 1–4, something better at 5+.
-
-Onboarding gifts usually want a small positive delta so the gift lands
-after the first day rather than before the person has a badge.
+- **Tiered anniversaries:** use `tenure_min` / `tenure_max` and one rule
+  per tier, e.g. a $50 gift for years 1–4 and something better at 5+.
+- **Onboarding:** send a few days *after* the start date, so the gift
+  arrives once the person is actually there.
 
 ### 4. Preview, confirm, then activate
 
