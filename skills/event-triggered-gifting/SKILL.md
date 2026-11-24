@@ -86,16 +86,25 @@ problem.
 
 ### 4. Write the result back
 
-Stamp each source record — a Notion property, a CRM field, a spreadsheet
-column — with the batch id, the sent-on date, and that person's order id
-(plus their gift link for `link_single`). Get these from
-`goody_orders_list` with the `order_batch_id`, paging through every page,
-not from the create result, which may not list the gifts yet and never
-lists more than 10. If some gifts aren't there after a few checks (see
-step 6 of `send-gifts`), write back the ones you have and leave the rest
-unmarked so the next run picks them up. The order id is what you need
-later to check on or cancel one person's gift. Mark skipped rows with the
-reason, such as a missing email.
+Write back in two steps.
+
+**Right after create succeeds**, stamp every person in the send with the
+batch id, the `idempotency_key`, the sent-on date, and a status of
+`pending`. Do this before looking for gifts. A row with a batch id counts
+as gifted, so the next run skips it even if its gift hasn't appeared yet.
+
+**Then fill in each person's order id** (plus their gift link for
+`link_single`) from `goody_orders_list` with the `order_batch_id`, paging
+through every page. Don't use the create result; it may not list the
+gifts yet and never lists more than 10. If some are still missing after a
+few checks (see step 6 of `send-gifts`), leave those rows `pending` and
+fill them in on a later run. The order id is what you need later to check
+on or cancel one person's gift.
+
+Never send again to a `pending` row. Only clear a row for a new send once
+its gift has clearly failed (status `failed` in `goody_orders_list`) and
+the user agrees. Mark skipped rows with the reason, such as a missing
+email.
 
 Goody will not dedupe for you, and the next run will re-send to everyone
 still matching the filter.
