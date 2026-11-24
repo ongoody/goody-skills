@@ -22,8 +22,10 @@ instead of pasting a Calendly link into the message.
 Don't set `printed_gift_note_mode` or `printed_gift_note_text` from here.
 Some brands charge a fee per printed note, and preview and price don't
 accept those fields, so the fee would be missing from the total the user
-approved. Leave them out; the brand's usual note still prints. If the
-user wants a custom printed note, point them to the Goody web app.
+approved. Leave them out: there's no fee, but the card message isn't
+printed either, only whatever note the brand usually includes (which may
+be none). If the user wants their message printed in the box, point them
+to the Goody web app.
 
 ## Question forms
 

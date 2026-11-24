@@ -85,11 +85,13 @@ gift that reads like one causes real problems.
 1. `goody_order_batches_preview` with the exact inputs. Lead your reply
    with `preview_url`. Each preview replaces the last one at the same
    link, so share only the newest.
-2. `goody_order_batches_price` with the cart (or template), recipients,
-   `send_method`, `swap`, `from_name`, and `payment_method_id`. It
-   rejects the other inputs (card, message, meeting, form, international
-   and upgrade settings), so leave those out. The preview doesn't return
-   the From name or the funding source; price does.
+2. `goody_order_batches_price` with the cart or template (`variants`,
+   `quantity`, and `variable_price` are fine), recipients, `send_method`,
+   `swap`, `from_name`, and `payment_method_id`. It rejects everything
+   else (card, message, meeting, form, schedule date, expiry,
+   international and upgrade settings), and its error lists what it
+   accepts. The preview doesn't return the From name or the funding
+   source; price does.
 
 Give the total **with its shape**. Totals are a low-to-high range
 because tax is estimated: "47 people × $25 + $1.25 fee each = $1,233.75,
@@ -126,10 +128,13 @@ gift "sent" without saying whether recipients were reached. Give the
 batch id.
 
 For `link_single`, nobody is notified, so the user needs every
-person's link. `orders_preview` holds at most 10 gifts, and the top-level
-`gift_link_url` is only the first one. When `orders_count` is more than
-what `orders_preview` shows, page through `goody_orders_list` with the
-`order_batch_id` and collect `individual_gift_link` from every gift.
+person's link. Always get them from `goody_orders_list` with the
+`order_batch_id`, paging until you've read `recipients_count` gifts, and
+take `individual_gift_link` from each. Don't rely on the create result:
+on larger sends it comes back before the gifts exist (`orders_count: 0`,
+empty `orders_preview`), `orders_preview` never holds more than 10, and
+`gift_link_url` is only the first gift's. If the list is still short,
+wait a few seconds and check again.
 
 Then offer a next step when it fits: save inline recipients as contacts
 (only with a yes), or repeat the gift yearly with `autogift-rules`, which
