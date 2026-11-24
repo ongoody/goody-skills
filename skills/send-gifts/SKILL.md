@@ -15,7 +15,7 @@ Load a reference file only when the gift needs it:
 |---|---|
 | The user mentions a template or "the gift we always send" | `reference/templates.md` |
 | Shipping a physical item (`direct_send`), or anyone outside the US/Canada | `reference/shipping.md` |
-| A meeting request, a printed note in the box, or a question form | `reference/extras.md` |
+| A meeting request or a question form | `reference/extras.md` |
 | The cart has alcohol | `reference/alcohol.md` |
 | A create call times out, errors, or you're retrying | `reference/retries.md` |
 

@@ -1,4 +1,4 @@
-# Meeting requests, printed notes, and question forms
+# Meeting requests and question forms
 
 ## Meeting requests
 
@@ -16,16 +16,6 @@ instead of pasting a Calendly link into the message.
   meeting before claiming a thank-you reads badly.
 - Pass the same value to preview and create. Not allowed with
   `direct_send`.
-
-## Printed notes in the box
-
-Don't set `printed_gift_note_mode` or `printed_gift_note_text` from here.
-Some brands charge a fee per printed note, and preview and price don't
-accept those fields, so the fee would be missing from the total the user
-approved. Leave them out: there's no fee, but the card message isn't
-printed either, only whatever note the brand usually includes (which may
-be none). If the user wants their message printed in the box, point them
-to the Goody web app.
 
 ## Question forms
 
