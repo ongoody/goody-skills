@@ -38,11 +38,19 @@ Notion database, or an HRIS report.
 | `first_name` (**required**) | Name, First Name, Contact |
 | `last_name` | often needs splitting from a single Name column |
 | `email` | Email, Work Email |
-| `phone` | any format — Goody normalizes to E.164 |
+| `phone` | needs the country code (see below) |
 | `company` | Company, Account, Employer |
 | `title` | Title, Role, Position |
 | `birthday` | `YYYY-MM-DD` |
 | `work_anniversary` | Start Date, Hire Date — `YYYY-MM-DD` |
+
+Phone numbers are converted to international format (E.164). A full
+number like `(415) 555-0100` or `+44 20 7946 0958` converts correctly. A
+short local number like `555-0199` is saved as junk with no error. Leave
+out numbers you can't make complete.
+
+A start date maps to `work_anniversary`. It doesn't set up a first-day
+(onboarding) gift; those dates come from a connected HRIS.
 
 Show the user the mapping you inferred and let them correct it before you
 write anything. A wrong column is cheap to fix now and tedious to unwind
@@ -66,11 +74,22 @@ For each row:
 - Match, same data → leave alone.
 - Match, changed data → `goody_contacts_update`.
 
+Search results don't include `birthday` or `work_anniversary`. To compare
+dates, call `goody_contacts_get` for each match.
+
+`goody_contacts_create` refuses an email or phone that already exists in
+the workspace (email ignores capitals), so a missed match on those fails
+safely. Count it as "already there", not as an error. A contact with
+neither email nor phone has no such guard: running the import again
+creates a second copy.
+
 ### 3. Create
 
 `goody_contacts_create` per person. Only `first_name` and `workspace_id`
-are required, but a contact with no email can't receive an emailed gift —
-flag those rather than creating something that fails at send time.
+are required, but a contact with no email can't receive an emailed gift.
+Skip rows with no email and list them, unless the user says to create
+them anyway. If they do, search by full name before creating on every
+run, since nothing else stops a duplicate.
 
 Report counts as you go: created, updated, skipped, failed. On a partial
 failure keep going and report at the end. Don't abort the whole import
@@ -86,18 +105,24 @@ rules bind to this list, so the name gets read back months later.
 
 ## Keeping it current
 
-None of this is a live connection. A contact list is a snapshot of the
-`contact_ids` passed at creation; later rows in the source don't appear on
+None of this is a live connection. A contact list holds the
+`contact_ids` passed when it was made. These tools can't add people to an
+existing list or remove them, so later rows in the source don't appear on
 their own.
 
-For a recurring sync, the honest options are:
+Tell the user that up front when the list will drive an autogift rule.
+New hires added next month won't be on it. The options:
 
-- Re-run this skill on a schedule, using `goody_contacts_search` to add
-  only new people.
-- Write the Goody contact id back to each source row on creation, so the
-  next run tells new from already-synced without a search per row.
+- Add new people to the list in the Goody web app.
+- Use one of Goody's native integrations if the source has one (below).
+- Re-run this skill to create the new contacts. Write the Goody contact
+  id back to each source row, so the next run can tell new people from
+  ones already synced without searching each row.
 
-The second is worth the extra column past a few dozen people.
+Check `goody_contact_lists_list` before making another list. Names don't
+have to be unique, so running the import again quietly makes a second
+list with the same name. The listing shows each list's name and size, not
+who is on it.
 
 ## Goody's native integrations
 

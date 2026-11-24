@@ -7,14 +7,14 @@
   },
   "metadata": {
     "description": "Gifting recipes for the Goody MCP server.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "goody",
       "source": "./",
-      "description": "Send and automate business gifts through the Goody MCP server \u2014 core send flow, event-triggered gifting, contact sync, autogift rules, and spend guardrails.",
-      "version": "0.1.0",
+      "description": "Send and automate business gifts through the Goody MCP server \u2014 core send flow, event-triggered gifting, contact sync, autogift rules, and managing sent gifts.",
+      "version": "0.2.0",
       "author": {
         "name": "Goody",
         "email": "mcp@ongoody.com"
