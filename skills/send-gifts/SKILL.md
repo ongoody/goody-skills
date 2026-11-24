@@ -19,6 +19,10 @@ Load a reference file only when the gift needs it:
 | The cart has alcohol | `reference/alcohol.md` |
 | A create call times out, errors, or you're retrying | `reference/retries.md` |
 
+If you can't open these files (for example, this text was pasted into the
+chat), ask the user to paste the one you need, or follow the tool
+descriptions.
+
 ## Before anything else
 
 `goody_me_get` gives the account, `default_workspace`, `server_time`
@@ -82,8 +86,8 @@ gift that reads like one causes real problems.
 
 ## 4. Preview and price
 
-1. `goody_order_batches_preview` with the exact inputs. Lead your reply
-   with `preview_url`. Each preview replaces the last one at the same
+1. `goody_order_batches_preview` with every input it accepts. Lead your
+   reply with `preview_url`. Each preview replaces the last one at the same
    link, so share only the newest.
 2. `goody_order_batches_price` with the cart or template (`variants`,
    `quantity`, and `variable_price` are fine), recipients, `send_method`,
@@ -92,6 +96,10 @@ gift that reads like one causes real problems.
    international and upgrade settings), and its error lists what it
    accepts. The preview doesn't return the From name or the funding
    source; price does.
+
+Some settings only exist on create: the schedule date, expiry, and
+alcohol age check. Neither preview nor price shows them, so state each
+one to the user yourself before asking for a yes.
 
 Give the total **with its shape**. Totals are a low-to-high range
 because tax is estimated: "47 people × $25 + $1.25 fee each = $1,233.75,
@@ -128,13 +136,23 @@ gift "sent" without saying whether recipients were reached. Give the
 batch id.
 
 For `link_single`, nobody is notified, so the user needs every
-person's link. Always get them from `goody_orders_list` with the
-`order_batch_id`, paging until you've read `recipients_count` gifts, and
-take `individual_gift_link` from each. Don't rely on the create result:
-on larger sends it comes back before the gifts exist (`orders_count: 0`,
+person's link. Get them from `goody_orders_list` with the
+`order_batch_id`, paging through every page, and take
+`individual_gift_link` from each. Don't rely on the create result: on
+larger sends it comes back before the gifts exist (`orders_count: 0`,
 empty `orders_preview`), `orders_preview` never holds more than 10, and
-`gift_link_url` is only the first gift's. If the list is still short,
-wait a few seconds and check again.
+`gift_link_url` is only the first gift's.
+
+Gifts may not all exist yet:
+
+- **Scheduled for later** (`scheduled_send_on` in the future): don't look
+  for links. Tell the user they'll exist once it sends, and that
+  `manage-sent-gifts` can fetch them then.
+- **Sending now, but fewer gifts than `recipients_count`:** check again a
+  few seconds later, at most three times. Then give the links you have,
+  say how many are missing, and suggest checking later with
+  `manage-sent-gifts`. Don't keep polling; some recipients can fail
+  during creation and never get a gift.
 
 Then offer a next step when it fits: save inline recipients as contacts
 (only with a yes), or repeat the gift yearly with `autogift-rules`, which

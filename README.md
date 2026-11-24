@@ -61,6 +61,8 @@ conversation.
 | [`autogift-rules`](skills/autogift-rules) | Always-on rules for birthdays, work anniversaries, and onboarding. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/autogift-rules/SKILL.md) |
 | [`manage-sent-gifts`](skills/manage-sent-gifts) | Check who opened or accepted a gift, look up past sends, and cancel a gift that hasn't been accepted. | [Copy](https://raw.githubusercontent.com/ongoody/goody-skills/main/skills/manage-sent-gifts/SKILL.md) |
 
+`send-gifts` keeps less common cases in separate files: [templates](skills/send-gifts/reference/templates.md), [shipping and international](skills/send-gifts/reference/shipping.md), [meetings and forms](skills/send-gifts/reference/extras.md), [alcohol](skills/send-gifts/reference/alcohol.md), and [retries](skills/send-gifts/reference/retries.md). When pasting, add whichever ones your gift needs. Installed skills (below) load them on their own.
+
 **Which one?** If you're sending now, `send-gifts` is all you need. If the
 gift should fire off something in another system, the dividing line is what
 triggers it: Goody automates birthdays, work anniversaries, and onboarding
